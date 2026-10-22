@@ -17,9 +17,9 @@ None yet — existing scaffolding has not been assessed as shipped product funct
 ### Active
 
 - [ ] Browse recipes supplied by DummyJSON.
-- [ ] Search recipes by name and filter the catalog; exact filters will be scoped during requirements definition.
+- [ ] Search recipes by name, combine cuisine, difficulty and maximum total time filters, and paginate matching results.
 - [ ] View recipe details, including ingredients and preparation instructions.
-- [ ] Save favorites locally and retain them across browser sessions.
+- [ ] Save favorites from cards and details, retain them across browser sessions, and browse a dedicated favorites page.
 - [ ] Create a recipe through a validated form and send it to DummyJSON.
 - [ ] Show an explicit success confirmation after a successful creation response; persistence of created recipes is not required.
 - [ ] Provide transitions between pages using View Transitions, with routing integration selected during technical planning.
@@ -38,9 +38,9 @@ None yet — existing scaffolding has not been assessed as shipped product funct
 - The user wants hands-on exposure to advanced React concepts through a complete application, with the assistant performing implementation.
 - The workspace contains React, TypeScript and Vite scaffolding, a package manifest, and installed dependencies. No existing product capabilities have been verified.
 - The user explicitly mentioned TanStack, View Transitions and React Hook Form. Router and query-library choices must be evaluated for their respective purposes during planning; additional libraries should serve concrete use cases.
-- React Hook Form is intended for recipe creation; detailed fields, validation rules, ingredient entry and instruction entry remain to be designed.
+- Recipe creation includes name, ingredient and instruction rows with add/remove controls, preparation and cooking times, servings, cuisine and difficulty. French validation errors, retained values after failure and response-based success feedback are approved.
 - The desired aesthetic is a culinary magazine. Typography, colors, layout, components and motion will be explored collaboratively in the dedicated design phase rather than treated as settled choices.
-- Exact catalog filters remain open. Editing and deleting recipes were suggested but not explicitly accepted; they are not committed scope.
+- Catalog filters are cuisine, difficulty and maximum total preparation plus cooking time, combined with name search and pagination. Editing and deleting recipes are not committed scope.
 - DummyJSON endpoint behavior and supported payloads must be verified against official documentation before implementation.
 
 ## Constraints
