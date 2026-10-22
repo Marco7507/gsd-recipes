@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "form button[type=submit]",
+    "before": "rgb(181, 42, 24)",
+    "hover": "rgb(151, 35, 21)",
+    "status": "pass"
+  },
+  {
+    "selector": "nav[aria-label=\"Pagination de démonstration\"] button[aria-current]",
+    "before": "rgb(36, 26, 22)",
+    "hover": "rgb(36, 26, 22)",
+    "status": "pass"
+  },
+  {
+    "name": "Simulated primary hover uses darker tomato",
+    "status": "pass"
+  },
+  {
+    "name": "Simulated hover preserves active pagination",
+    "status": "pass"
+  }
+]

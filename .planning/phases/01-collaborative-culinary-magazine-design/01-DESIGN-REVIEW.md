@@ -121,3 +121,14 @@ At mobile/desktop widths, try the state selector, filter drafts/apply/cancel, fa
 - Explicit component decision:
 
 Foundation approval is recorded above; component approval remains blank. Catalog comparisons (01-03), complete screens (01-04) and final approval (01-05) await their planned review stages.
+
+## Owner component decision and corrections — C02 — 2026-10-22
+
+- Reviewed artifact: C01.
+- Verbatim response: “Quand on hover un bouton marron il devient noir, je n'aime pas cet effet, rend simplement le bouton plus foncé. Pareil quand on hover dans la pagination le bouton actif, son fond passe de noir à rose mais du coup on ne voit plus le texte car il est blanc sur rose. Juste enlève le hover de l'élément actif car ça ne sert à rien. Le reste des composants est approuvé”
+- Requested correction 1: replace black primary hover with a darker shade of the same tomato/brown color.
+- Requested correction 2: active pagination item has no hover change, in both real pointer and simulated hover.
+- Applied revision: C02; shared `--tomato-hover: #972315` and active-page exclusions. Disabled primary controls excluded from hover.
+- Explicit component decision: accepted with these two concrete corrections; remaining components approved.
+- Owner-reviewed widths: not specified.
+- Additional review is not required for implementing the exact requested corrections; verify the corrected computed styles before proceeding.
