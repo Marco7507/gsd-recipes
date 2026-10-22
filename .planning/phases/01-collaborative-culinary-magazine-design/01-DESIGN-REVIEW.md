@@ -77,3 +77,18 @@ Inverse chrome/hover pairs share the same ratio. Focus on tomato has cream separ
 - Reviewed viewports: not specified by the owner; four-width automated evidence exists separately.
 - Unresolved foundation items: none reported.
 - Scope: closes Plan 01-01 Task 3 and permits component review. Component, composition and complete-screen approvals are future stages.
+
+## Components — C01
+
+- Revision: C01, based on accepted F01.
+- URL: http://localhost:5187/ ; default “Composants” stage, foundations remain reachable.
+- Foundation feedback applied: Miam ! is now displayed as the chosen name. Palette, Fredoka/system typography, shapes and spacing retained exactly as accepted; no visual revision requested.
+- Inventory: buttons/links, text/numeric fields, native selects, filter dialog and chips, recipe card and sibling favorite control, desktop/mobile navigation, pagination, ingredient/step rows, feedback/skeletons.
+- State ownership: transient React state only; no fetch, storage, route or added package.
+- Task 1 checks: build and scoped lint passed; 13 Chromium behavior checks passed (dialog drafts/apply/focus, pagination reset, favorite semantics, row add/remove/restore and one-row minimum, independent card targets).
+- Owner feedback verbatim:
+- Reviewed states/viewports:
+- Requested changes:
+- Changes incorporated after component review:
+- Unresolved component items:
+- Explicit component decision:

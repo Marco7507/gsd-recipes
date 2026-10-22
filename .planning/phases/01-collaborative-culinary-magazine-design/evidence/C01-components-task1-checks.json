@@ -1,0 +1,54 @@
+[
+  {
+    "name": "Components stage is reachable",
+    "status": "pass"
+  },
+  {
+    "name": "Inventory headings",
+    "status": "pass"
+  },
+  {
+    "name": "Dialog initial focus",
+    "status": "pass"
+  },
+  {
+    "name": "Unapplied changes discarded",
+    "status": "pass"
+  },
+  {
+    "name": "Reopened from applied values",
+    "status": "pass"
+  },
+  {
+    "name": "Applied chip visible",
+    "status": "pass"
+  },
+  {
+    "name": "Applying filters resets page",
+    "status": "pass"
+  },
+  {
+    "name": "Favorite toggle semantics",
+    "status": "pass"
+  },
+  {
+    "name": "Added row focused",
+    "status": "pass"
+  },
+  {
+    "name": "Removal focus and restore",
+    "status": "pass"
+  },
+  {
+    "name": "Restore content and focus",
+    "status": "pass"
+  },
+  {
+    "name": "Independent card targets",
+    "status": "pass"
+  },
+  {
+    "name": "One-step minimum",
+    "status": "pass"
+  }
+]
