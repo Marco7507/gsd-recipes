@@ -12,8 +12,8 @@ provides:
 affects: [01-03, 01-04, 01-05]
 actuals:
   tokens: 16261
-  tasks: 2
-  commits: 2
+  tasks: 3
+  commits: 3
 tech-stack:
   added: []
   patterns: [transient specimen state, native dialog, stable row identity, focus restoration]
@@ -27,7 +27,7 @@ patterns-established:
   - "Use draft/applied filter state and reset pagination on applied changes."
   - "Stable row identities preserve content and permit focused restoration."
   - "Submission simulation locks concurrently and retains values on failure."
-requirements-completed: []
+requirements-completed: [DES-01]
 coverage:
   - id: C01
     description: Operable component inventory, states and keyboard feedback
@@ -46,11 +46,14 @@ coverage:
   - id: C02
     description: Separate owner review of component direction
     requirement: DES-01
-    verification: []
+    verification:
+      - kind: manual_procedural
+        ref: 01-DESIGN-REVIEW.md#owner-component-decision-and-corrections--c02--2026-10-22
+        status: pass
     human_judgment: true
-    rationale: Plan 01-02 Task 3 is a blocking-human checkpoint; owner response is pending.
-completed: null
-status: halted
+    rationale: Owner explicitly approved components with two precise corrections, implemented and browser-verified.
+completed: 2026-10-22
+status: complete
 ---
 
 # Plan 01-02 — Component Review Checkpoint
@@ -61,7 +64,7 @@ status: halted
 
 - Task 1 complete: accepted name applied; gallery exposes all UI-SPEC shared component specimens. Commit `df25a5a`.
 - Task 2 complete: seven state modes, E9–E19 inventory, focused linked errors, response simulation, dialog/row focus, wrapping and motion handling. Commit `545df32`.
-- Task 3 pending: component review distinct from F01 foundation approval. No owner component decision recorded.
+- Task 3 complete: owner approved remaining components and requested two concrete hover corrections. Both applied in C02.
 
 ## Verification
 
@@ -94,3 +97,9 @@ Plans 01-03 through 01-05 remain blocked by component review. After owner approv
 ## Self-Check
 
 Implementation files, evidence and both task commits exist; automated criteria pass. Human checkpoint remains pending, so this summary intentionally reports `halted`, never completion.
+
+## Resolved owner checkpoint — C02
+
+Owner approved the remaining components and requested a darker primary hover and no hover change for active pagination. Applied `--tomato-hover: #972315` and active-page exclusions in real and simulated states. Four computed-style assertions passed; primary hover is rgb(151,35,21), active pagination remains rgb(36,26,22). Lint/build passed. Evidence: `evidence/C02-hover-checks.json`.
+
+The earlier checkpoint sections describe the historical stop. It is now resolved: all three tasks complete and Plan 01-03 is released. DES-01 remains pending final phase approval.
