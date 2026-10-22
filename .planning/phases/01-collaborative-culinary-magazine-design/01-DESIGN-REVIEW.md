@@ -66,3 +66,14 @@ Plan 01-01 Task 3 is pending (blocking-human). Plans 01-02 through 01-05 remain 
 | Ink / tomato (separated focus only) | 2.68:1 | Not used for normal text; focus has cream separation |
 
 Inverse chrome/hover pairs share the same ratio. Focus on tomato has cream separation (cream/tomato ratio above); ink/cream outline exceeds 3:1. Input borders use ink/cream. Skeletons and decorative swatches are not essential boundaries.
+
+## Owner foundations decision — 2026-10-22
+
+- Reviewed artifact: F01, commit `0c1202c`, http://localhost:5187/.
+- Verbatim owner response: “Miam ! C'est bien. Je valide le design”
+- Explicit foundation decision: approved.
+- Selected product name: Miam !
+- Typography / palette / shapes: F01 accepted as presented; no requested changes.
+- Reviewed viewports: not specified by the owner; four-width automated evidence exists separately.
+- Unresolved foundation items: none reported.
+- Scope: closes Plan 01-01 Task 3 and permits component review. Component, composition and complete-screen approvals are future stages.
