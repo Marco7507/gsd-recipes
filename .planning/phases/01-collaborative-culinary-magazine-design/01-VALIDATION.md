@@ -2,7 +2,7 @@
 phase: "01"
 slug: "collaborative-culinary-magazine-design"
 status: draft
-nyquist_compliant: false
+nyquist_compliant: true
 wave_0_complete: false
 created: "2026-10-22"
 ---
@@ -27,23 +27,23 @@ Existing TypeScript/Vite build and Oxlint support manual browser acceptance. No 
 
 ## Per-Task Verification Map
 
-Planning is blocked pending UI-SPEC.md. Assign exact task IDs, waves and unique threat references when plans exist; the rows below are coverage obligations, not invented task assignments.
+The plan set assigns every validation obligation to an exact task. Threat references are phase-unique; `T-01-SC` is the reserved supply-chain row repeated by contract.
 
-| Behavior | Requirement | Test Type | Automated Command | Manual Evidence | Status |
-|----------|-------------|-----------|-------------------|-----------------|--------|
-| Reachable review surface | DES-01 | Build + browser smoke | `npm run build` | Open documented review URL | Pending |
-| Foundations and component states | DES-01 | Lint + owner review | `node_modules/.bin/oxlint src` | Separate feedback and validation records | Pending |
-| Three catalog compositions | DES-01 | Build + comparison | `npm run build` | Mobile/desktop comparison and selection | Pending |
-| Complete screens and states | DES-01 | Build + scenario review | `npm run build` | Catalog, detail, favorites, creation matrix | Pending |
-| Keyboard, responsive layout and motion | DES-01 | Browser acceptance | `npm run build` | Focus, Escape, focus return, reflow, reduced motion | Pending |
-| Final approval before Phase 2 | DES-01 | Human approval | N/A — human decision | Explicit approval tied to artifact revision | Pending |
+| Plan / Task | Wave | Behavior | Requirement | Test Type | Automated Command | Manual Evidence | Threat Refs | Status |
+|-------------|------|----------|-------------|-----------|-------------------|-----------------|-------------|--------|
+| 01-01 / Task 1 | 1 | Reachable fixture-only review tracer and revision ledger | DES-01 | Build + entry smoke | `npm run build` | Open executor-provided root URL | T-01-01, T-01-02, T-01-03 | Pending |
+| 01-01 / Tasks 2–3 | 1 | Complete foundations followed by explicit owner review | DES-01 | Lint/build + owner decision | `node_modules/.bin/oxlint src`; `npm run build` | Four-width foundations review | T-01-01, T-01-02 | Pending |
+| 01-02 / Tasks 1–3 | 2 | Complete interactive components/states followed by separate owner review | DES-01 | Lint/build + keyboard review | `node_modules/.bin/oxlint src`; `npm run build` | Component/state, dialog and focus review | T-01-04, T-01-05, T-01-06 | Pending |
+| 01-03 / Tasks 1–3 | 3 | Three same-system catalog compositions and explicit A/B/C selection | DES-01 | Lint/build + comparison | `node_modules/.bin/oxlint src`; `npm run build` | Mobile/desktop comparison and decision | T-01-07, T-01-08, T-01-09 | Pending |
+| 01-04 / Tasks 1–3 | 4 | Selected catalog, detail, favorites and creation state matrix | DES-01 | Lint/build + browser acceptance | `node_modules/.bin/oxlint src`; `npm run build` | 123 UI pairs; keyboard/reflow/motion review | T-01-10, T-01-11, T-01-12 | Pending |
+| 01-05 / Tasks 1–3 | 5 | Feedback incorporation and final owner-only Phase 2 release gate | DES-01 | Lint/build + explicit approval | `node_modules/.bin/oxlint src`; `npm run build` | Approval tied to exact final revision | T-01-13, T-01-14, T-01-15 | Pending |
 
 ## Wave 0 Requirements
 
-- [ ] Create a reachable prototype entry and document the exact URL and launch command.
-- [ ] Provide deterministic fixtures and reachable scenario selectors.
-- [ ] Establish feedback and approval records plus a repeatable browser checklist.
-- [ ] Assign these checks to actual plan tasks after UI-SPEC preflight passes.
+- [ ] 01-01 Task 1 creates a reachable review entry and documents the exact URL and launch command.
+- [ ] 01-03 Task 1 provides typed deterministic fixtures; 01-02 through 01-04 provide reachable scenario selectors.
+- [ ] 01-01 Task 1 establishes the feedback/approval ledger; every checkpoint adds its stage-specific checklist and evidence.
+- [x] Every validation behavior is assigned to an exact plan/task and phase-unique threat references.
 
 ## Manual-Only Verifications
 
@@ -58,11 +58,11 @@ Planning is blocked pending UI-SPEC.md. Assign exact task IDs, waves and unique 
 
 ## Validation Sign-Off
 
-- [ ] All actual tasks have automated verification or explicit manual-only justification.
-- [ ] No three consecutive implementation tasks lack automated verification.
-- [ ] Wave 0 covers missing review infrastructure.
-- [ ] No watch-mode verification commands.
-- [ ] Automated feedback latency remains under 30 seconds.
-- [ ] Set `nyquist_compliant: true` only after the completed plan map is checked.
+- [x] All implementation tasks have runnable automated verification; checkpoints carry explicit human-only evidence.
+- [x] No consecutive implementation sequence lacks automated verification.
+- [x] Wave 1 assigns all missing review infrastructure to 01-01 before expansion.
+- [x] No watch-mode verification commands are used.
+- [x] Automated commands reuse the previously exercised sub-30-second build and scoped lint paths.
+- [x] The completed plan/task/threat map has been checked and `nyquist_compliant` is true.
 
 **Approval:** Pending. The brief and research do not approve the visual design.

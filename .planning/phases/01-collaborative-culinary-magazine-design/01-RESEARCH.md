@@ -256,10 +256,10 @@ No unsupported factual claim is being promoted to a locked decision. Proposed pa
 
 ## Open Questions
 
-1. **Name, fonts, exact colors and shapes:** intentionally unresolved under D-03–D-05. Present concrete choices during foundations review; do not block planning to ask again now.
-2. **Preferred catalog composition:** intentionally unresolved until the three same-DS responsive examples are reviewed.
-3. **Final responsive approval:** only the owner can resolve it after revisions. No approval can be inferred from this research or the accepted brief.
-4. **Photograph/font asset robustness:** retain source and license information for selected assets; check actual availability during prototype execution and provide a visible fallback if unavailable.
+1. **Name, fonts, exact colors and shapes — [RESOLVED: METHOD]:** Plan 01-01 Task 2 presents concrete proposals and Task 3 records the owner's choices under D-03–D-05. Aesthetic values remain pending owner review.
+2. **Preferred catalog composition — [RESOLVED: METHOD]:** Plan 01-03 presents three same-DS responsive compositions; Task 3 requires the owner to select A, B or C. The selection remains pending that checkpoint.
+3. **Final responsive approval — [RESOLVED: METHOD]:** Plan 01-05 incorporates feedback and identifies the final revision; Task 3 requires explicit owner approval of the DS and complete responsive screens. Approval remains pending; neither research nor the accepted brief grants it.
+4. **Photograph/font asset robustness — [RESOLVED: METHOD]:** Plan 01-01 Task 2 records source, license, local usage, availability and a visible fallback for every selected font and photograph before the foundations checkpoint. Asset selection remains pending those checks and owner review.
 
 ## Environment Availability
 
