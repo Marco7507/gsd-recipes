@@ -1,0 +1,9 @@
+@font-face { font-family: Fredoka; src: url('/design-review/fredoka.ttf') format('truetype'); font-style: normal; font-weight: 300 700; font-display: swap; }
+:root {
+  --cream: #FFF8ED; --ink: #241A16; --tomato: #B52A18; --pink: #FFD6E2; --lemon: #F4E66A; --burgundy: #8C1740;
+  --space-xs: 4px; --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px; --space-3xl: 64px;
+  --text-small: 16px; --text-heading: 24px; --text-compact: 32px; --text-display: 48px;
+  --weight-body: 400; --weight-heading: 700; --line-body: 1.5; --line-heading: 1.2;
+  --font-display: Fredoka, ui-rounded, system-ui, sans-serif; --font-body: system-ui, sans-serif;
+  --radius-panel: 16px; --radius-field: 8px; --radius-pill: 999px; --motion-response: 160ms;
+}
