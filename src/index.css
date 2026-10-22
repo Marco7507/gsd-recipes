@@ -1,0 +1,5 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #FFF8ED; color: #241A16; font: 400 16px/1.5 system-ui, sans-serif; }
+main, header { max-width: 1200px; margin: auto; padding: 24px; }
+button, select { font: inherit; min-height: 44px; max-width: 100%; }
+h1 { overflow-wrap: anywhere; }
