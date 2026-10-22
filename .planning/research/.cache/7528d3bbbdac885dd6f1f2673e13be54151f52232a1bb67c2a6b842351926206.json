@@ -1,0 +1,1 @@
+{"content":"RHF field arrays require object rows and stable generated keys. Map to API string arrays at submission. Numeric conversion can produce NaN and needs validation.","source":"web","provider":"websearch","confidence":"MEDIUM","fetched_at":"2026-10-22T11:03:08.985Z","ttl":86400000,"kind":"docs"}
