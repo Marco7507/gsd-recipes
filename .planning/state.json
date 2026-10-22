@@ -1,0 +1,43 @@
+{
+  "contract": "1.0.0",
+  "flavor": "core",
+  "milestone": null,
+  "phases": [
+    {
+      "number": "1",
+      "name": "Collaborative Culinary Magazine Design",
+      "status": "pending"
+    },
+    {
+      "number": "2",
+      "name": "Catalog Discovery",
+      "status": "pending"
+    },
+    {
+      "number": "3",
+      "name": "Recipe Reading and Navigation",
+      "status": "pending"
+    },
+    {
+      "number": "4",
+      "name": "Local Favorites",
+      "status": "pending"
+    },
+    {
+      "number": "5",
+      "name": "Recipe Creation Receipt",
+      "status": "pending"
+    },
+    {
+      "number": "6",
+      "name": "Integrated Experience Quality",
+      "status": "pending"
+    }
+  ],
+  "next": {
+    "command": "$gsd-progress --next",
+    "label": "Advance to the next step",
+    "reason": "Phase 1 of 6 · 0% · executing"
+  },
+  "updated_at": "2026-10-22T12:54:09.651Z"
+}
