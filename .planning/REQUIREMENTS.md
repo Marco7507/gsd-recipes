@@ -73,16 +73,39 @@ No additional capabilities are committed. Recipe editing/deletion, additional re
 
 ## Traceability
 
-To be populated during roadmap creation. Each v1 requirement must map to exactly one phase.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
+| DES-01 | Phase 1 | Pending |
+| DES-02 | Phase 6 | Pending |
+| DES-03 | Phase 6 | Pending |
+| CAT-01 | Phase 2 | Pending |
+| CAT-02 | Phase 2 | Pending |
+| CAT-03 | Phase 2 | Pending |
+| CAT-04 | Phase 2 | Pending |
+| CAT-05 | Phase 2 | Pending |
+| CAT-06 | Phase 2 | Pending |
+| CAT-07 | Phase 2 | Pending |
+| CAT-08 | Phase 2 | Pending |
+| READ-01 | Phase 3 | Pending |
+| READ-02 | Phase 3 | Pending |
+| NAV-01 | Phase 3 | Pending |
+| FAV-01 | Phase 4 | Pending |
+| FAV-02 | Phase 4 | Pending |
+| FAV-03 | Phase 4 | Pending |
+| CREATE-01 | Phase 5 | Pending |
+| CREATE-02 | Phase 5 | Pending |
+| CREATE-03 | Phase 5 | Pending |
+| CREATE-04 | Phase 5 | Pending |
+| CREATE-05 | Phase 5 | Pending |
+| CREATE-06 | Phase 5 | Pending |
+| UX-01 | Phase 6 | Pending |
+| UX-02 | Phase 6 | Pending |
 
 **Coverage:**
 - v1 requirements: 25 total
-- Mapped to phases: 0
-- Unmapped: 25 (roadmap pending)
+- Mapped to phases: 25
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-10-22*
-*Last updated: 2026-10-22 after scope approval*
+*Last updated: 2026-10-22 after roadmap creation*
