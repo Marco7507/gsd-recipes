@@ -121,3 +121,17 @@
 .field input[aria-invalid='true'] { border-color: var(--burgundy); }
 .feedback { background: var(--pink); padding: var(--space-lg); border-radius: var(--radius-panel); display: grid; gap: var(--space-lg); min-height: 160px; }
 @media (max-width: 767px) { .cardGrid, .rowGrid, .formGrid { grid-template-columns: 1fr; } .filterDialog { padding: var(--space-md); } .scenarioControls { padding: var(--space-md); } .desktopNavigation { flex-direction: column; width: 100%; align-items: start; } }
+.componentGallery[data-preview='hover'] .secondary, .componentGallery[data-preview='hover'] .favorite, .componentGallery[data-preview='hover'] .chip, .componentGallery[data-preview='hover'] .pagination button:not(:disabled) { background: var(--pink); }
+.componentGallery[data-preview='hover'] .field :is(input, select, textarea), .field :is(input, select, textarea):hover { border-style: dashed; }
+.componentGallery[data-preview='focus'] .field :is(input, select, textarea), .componentGallery[data-preview='focus'] .pagination [aria-current], .componentGallery[data-preview='focus'] .mobileNavigation [aria-current], .componentGallery[data-preview='focus'] .textLink { outline: 3px solid var(--ink); outline-offset: 4px; box-shadow: 0 0 0 4px var(--cream); }
+.field textarea[aria-invalid='true'] { border-color: var(--burgundy); }
+.field :is(input, textarea):disabled { border-style: dashed; cursor: not-allowed; }
+.stateInventory { display: grid; gap: var(--space-lg); margin: 0; }
+.stateInventory > div { display: grid; gap: var(--space-sm); border-bottom: 2px solid var(--ink); padding-bottom: var(--space-lg); }
+.stateInventory dt { font-weight: var(--weight-heading); }
+.stateInventory dd { margin: 0; max-width: 65ch; }
+.pagination button { min-width: 44px; }
+.specimenStack { align-content: start; }
+.desktopNavigation a:hover, .mobileNavigation a:hover, .componentGallery[data-preview='hover'] .desktopNavigation a, .componentGallery[data-preview='hover'] .mobileNavigation a { background: var(--pink); }
+.textLink:hover, .cardBody h3 a:hover, .componentGallery[data-preview='hover'] .textLink, .componentGallery[data-preview='hover'] .cardBody h3 a { text-decoration-thickness: 2px; }
+.componentGallery[data-preview='focus'] .desktopNavigation [aria-current], .componentGallery[data-preview='focus'] .cardBody h3 a, .componentGallery[data-preview='focus'] .chip { outline: 3px solid var(--ink); outline-offset: 4px; box-shadow: 0 0 0 4px var(--cream); }

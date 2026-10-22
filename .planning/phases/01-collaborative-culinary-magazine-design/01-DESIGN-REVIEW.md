@@ -92,3 +92,32 @@ Inverse chrome/hover pairs share the same ratio. Focus on tomato has cream separ
 - Changes incorporated after component review:
 - Unresolved component items:
 - Explicit component decision:
+
+### C01 component-state verification — 2026-10-22
+
+- Task 2 complete; Task 3 awaits owner component review.
+- Seven selectable states: default, hover, focus, selected, disabled, loading, error. Form/row specimens reset on mode change, explicitly labeled in review chrome.
+- E9–E19 state inventory is rendered in the gallery; applicable interactions and specifically inapplicable states are explained per component. Local interactions do not fabricate transport waits.
+- `node_modules/.bin/oxlint src`: passed.
+- `npm run build`: passed.
+- Chromium: 43 behavior assertions passed; 28 width/state combinations (320, 390, 768, 1440 × seven modes) with long text and missing image, no horizontal page overflow; dialog reflow checked at each width.
+- Keyboard: initial modal focus, nine forward Tabs, reverse Tab wrap, Escape/discard and focus return passed. A forward wrap issue found during review was fixed using a boundary Tab handler on the native dialog.
+- Rows: add/remove/restore focus, restored content, one-row minimum and step renumbering passed.
+- Form: required and numeric integer validation, focused linked summary, pending status, synchronous concurrent-send guard, failure retaining inputs, explicit held wait and response-gated simulated success passed.
+- Reduced motion disables every rendered transition and smooth scroll; visible button targets are at least 44px high, pagination targets also at least 44px wide.
+- Local licensed food image and Fredoka from F01 retained. No added color pairing beyond F01 measurements: cream/ink review chrome, cream/tomato actions, ink/cream inputs, burgundy/cream errors/removal, ink/pink cards. Focus has contrasting separation.
+- Source check: no fetch, XMLHttpRequest, localStorage, sessionStorage or raw HTML injection in design-review code.
+- Desktop/mobile screenshots inspected; evidence and repeatable CDP script saved under `evidence/C01-*`. Screenshots capture default state following interaction checks; active sample filters/favorite are demonstration state only.
+
+### C01 owner checklist — pending
+
+At mobile/desktop widths, try the state selector, filter drafts/apply/cancel, favorite, pagination, row add/remove/restore, form errors, delayed failure/retry and success. Use Tab, Shift+Tab and Escape. Compare long labels, missing photos and reduced motion.
+
+- Reviewed revision: C01
+- Owner feedback verbatim:
+- Reviewed viewports and states:
+- Requested revisions:
+- Unresolved owner concerns:
+- Explicit component decision:
+
+Foundation approval is recorded above; component approval remains blank. Catalog comparisons (01-03), complete screens (01-04) and final approval (01-05) await their planned review stages.

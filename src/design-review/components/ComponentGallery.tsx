@@ -1,5 +1,5 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
-import type { FormEvent, ReactNode } from 'react'
+import type { FormEvent, KeyboardEvent, ReactNode } from 'react'
 import styles from '../review.module.css'
 
 export type PreviewState = 'default' | 'hover' | 'focus' | 'selected' | 'disabled' | 'loading' | 'error'
@@ -56,12 +56,20 @@ export function FilterSpecimen() {
   const active = (Object.entries(applied) as [keyof Filters, string][]).filter(([, value]) => value)
   function updateApplied(value: Filters) { setApplied(value); setPage(1) }
   function close() { setDraft(applied); dialog.current?.close() }
+  function containTab(event: KeyboardEvent<HTMLDialogElement>) {
+    if (event.key !== 'Tab') return
+    const controls = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), select:not(:disabled), input:not(:disabled), a[href], [tabindex="0"]')).filter(control => control.getClientRects().length)
+    const first = controls[0]
+    const last = controls[controls.length - 1]
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
+  }
   return <div className={styles.specimenStack}>
     <label className={styles.field}>Rechercher une recette<input type="search" value={search} placeholder="Pizza, soupe, poulet…" onChange={event => { setSearch(event.target.value); setPage(1) }} /></label>
     <div className={styles.buttonRow}><button ref={trigger} type="button" className={styles.secondary} onClick={() => { setDraft({ ...applied }); dialog.current?.showModal() }}>Ouvrir les filtres</button><span>Les changements du panneau restent des brouillons jusqu’à application.</span></div>
     <div className={styles.buttonRow} aria-label="Filtres appliqués">{active.length ? active.map(([key, value]) => <button type="button" key={key} className={styles.chip} aria-label={`Retirer le filtre ${key === 'cuisine' ? 'Cuisine' : key === 'difficulty' ? 'Difficulté' : 'Temps total maximum'} : ${value}${key === 'maximumTime' ? ' min' : ''}`} onClick={() => updateApplied({ ...applied, [key]: '' })}>{value}{key === 'maximumTime' ? ' min' : ''} <span aria-hidden="true">×</span></button>) : <p>Aucun filtre appliqué</p>}{active.length > 0 && <button type="button" className={styles.textButton} onClick={() => updateApplied(emptyFilters)}>Réinitialiser les filtres</button>}</div>
     <Pagination page={page} onChange={setPage} />
-    <dialog ref={dialog} className={styles.filterDialog} aria-labelledby={`${prefix}-title`} onCancel={() => setDraft(applied)} onClose={() => trigger.current?.focus()}>
+    <dialog ref={dialog} className={styles.filterDialog} onKeyDown={containTab} aria-labelledby={`${prefix}-title`} onCancel={() => setDraft(applied)} onClose={() => trigger.current?.focus()}>
       <div className={styles.specimenStack}><div className={styles.dialogHeading}><h3 id={`${prefix}-title`}>Filtrer les recettes</h3><button type="button" autoFocus className={styles.secondary} onClick={close}>Fermer les filtres</button></div>
         <FilterSelects value={draft} onChange={setDraft} prefix={prefix} />
         <button type="button" className={styles.textButton} onClick={() => setDraft(emptyFilters)}>Réinitialiser les filtres</button>
@@ -76,10 +84,10 @@ export function Pagination({ page, onChange }: { page: number; onChange: (page: 
 }
 
 type Row = { id: number; text: string }
-export function RecipeRows({ kind }: { kind: 'ingredient' | 'step' }) {
+export function RecipeRows({ kind, preview = 'default' }: { kind: 'ingredient' | 'step'; preview?: PreviewState }) {
   const prefix = useId()
   const nextId = useRef(2)
-  const [rows, setRows] = useState<Row[]>([{ id: 1, text: '' }])
+  const [rows, setRows] = useState<Row[]>([{ id: 1, text: preview === 'selected' ? (kind === 'ingredient' ? 'Tomates fraîches' : 'Coupez les tomates, puis ajoutez le basilic.') : '' }])
   const [removed, setRemoved] = useState<{ row: Row; index: number } | null>(null)
   const [focusTarget, setFocusTarget] = useState<{ id: number } | null>(null)
   const [announcement, setAnnouncement] = useState('')
@@ -103,8 +111,8 @@ export function RecipeRows({ kind }: { kind: 'ingredient' | 'step' }) {
     setRows(updated); setFocusTarget({ id: removed.row.id }); setRemoved(null); setAnnouncement(`${label} restauré.`)
   }
   return <div className={styles.specimenStack}><h3>{isIngredient ? 'Ingrédients' : 'Préparation'}</h3><p>Une ligne minimum. Une ligne remplie peut être restaurée jusqu’à la prochaine modification.</p>
-    <ol className={styles.rows}>{rows.map((row, index) => <li key={row.id}><label className={styles.field} htmlFor={`${prefix}-${row.id}`}>{label} {index + 1}{isIngredient ? <input id={`${prefix}-${row.id}`} value={row.text} onChange={event => { setRows(rows.map(item => item.id === row.id ? { ...item, text: event.target.value } : item)); setRemoved(null) }} /> : <textarea id={`${prefix}-${row.id}`} rows={3} value={row.text} onChange={event => { setRows(rows.map(item => item.id === row.id ? { ...item, text: event.target.value } : item)); setRemoved(null) }} />}</label><button type="button" className={styles.removeButton} disabled={rows.length === 1} aria-label={`Retirer ${isIngredient ? 'l’ingrédient' : 'l’étape'} ${index + 1}`} onClick={() => remove(index)}>Retirer</button></li>)}</ol>
-    <div className={styles.buttonRow}><button type="button" className={styles.secondary} onClick={add}>{isIngredient ? 'Ajouter un ingrédient' : 'Ajouter une étape'}</button>{removed && <button type="button" className={styles.secondary} onClick={restore}>{isIngredient ? 'Restaurer l’ingrédient' : 'Restaurer l’étape'}</button>}</div><p role="status">{announcement}</p>
+    <ol className={styles.rows}>{rows.map((row, index) => <li key={row.id}><label className={styles.field} htmlFor={`${prefix}-${row.id}`}>{label} {index + 1}{isIngredient ? <input id={`${prefix}-${row.id}`} disabled={preview === 'disabled'} aria-invalid={preview === 'error' && !row.text.trim()} aria-describedby={preview === 'error' && !row.text.trim() ? `${prefix}-${row.id}-error` : undefined} value={row.text} onChange={event => { setRows(rows.map(item => item.id === row.id ? { ...item, text: event.target.value } : item)); setRemoved(null) }} /> : <textarea id={`${prefix}-${row.id}`} disabled={preview === 'disabled'} aria-invalid={preview === 'error' && !row.text.trim()} aria-describedby={preview === 'error' && !row.text.trim() ? `${prefix}-${row.id}-error` : undefined} rows={3} value={row.text} onChange={event => { setRows(rows.map(item => item.id === row.id ? { ...item, text: event.target.value } : item)); setRemoved(null) }} />}{preview === 'error' && !row.text.trim() && <span id={`${prefix}-${row.id}-error`} className={styles.error}>{isIngredient ? 'Renseignez cet ingrédient.' : 'Décrivez cette étape.'}</span>}</label><button type="button" className={styles.removeButton} disabled={preview === 'disabled' || rows.length === 1} aria-label={`Retirer ${isIngredient ? 'l’ingrédient' : 'l’étape'} ${index + 1}`} onClick={() => remove(index)}>Retirer</button></li>)}</ol>
+    <div className={styles.buttonRow}><button type="button" className={styles.secondary} disabled={preview === 'disabled'} onClick={add}>{isIngredient ? 'Ajouter un ingrédient' : 'Ajouter une étape'}</button>{removed && <button type="button" className={styles.secondary} onClick={restore}>{isIngredient ? 'Restaurer l’ingrédient' : 'Restaurer l’étape'}</button>}</div><p role="status">{announcement}</p>
   </div>
 }
 
@@ -115,15 +123,15 @@ const fields: { key: FieldKey; label: string; minimum?: number }[] = [
   { key: 'cooking', label: 'Temps de cuisson (min)', minimum: 0 }, { key: 'servings', label: 'Nombre de portions', minimum: 1 },
 ]
 
-export function FormSpecimen() {
+export function FormSpecimen({ preview = 'default' }: { preview?: PreviewState }) {
   const prefix = useId()
   const summary = useRef<HTMLDivElement>(null)
-  const [values, setValues] = useState<FormValues>({ name: '', preparation: '', cooking: '', servings: '' })
-  const [errors, setErrors] = useState<Partial<Record<FieldKey, string>>>({})
-  const [submission, setSubmission] = useState<'idle' | 'pending' | 'failure' | 'success'>('idle')
-  const [outcome, setOutcome] = useState<'success' | 'failure' | 'pending'>('success')
+  const [values, setValues] = useState<FormValues>(preview === 'selected' || preview === 'loading' ? { name: recipeName, preparation: '15', cooking: '20', servings: '4' } : { name: '', preparation: '', cooking: '', servings: '' })
+  const [errors, setErrors] = useState<Partial<Record<FieldKey, string>>>(preview === 'error' ? Object.fromEntries(fields.map(field => [field.key, `Renseignez ${field.label.toLocaleLowerCase('fr')}.`])) : {})
+  const [submission, setSubmission] = useState<'idle' | 'pending' | 'failure' | 'success'>(preview === 'loading' ? 'pending' : 'idle')
+  const [outcome, setOutcome] = useState<'success' | 'failure' | 'pending'>(preview === 'loading' ? 'pending' : 'success')
   const [attempt, setAttempt] = useState(0)
-  const lock = useRef(false)
+  const lock = useRef(preview === 'loading')
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current) }, [])
   useLayoutEffect(() => { if (Object.keys(errors).length) summary.current?.focus() }, [errors])
@@ -146,8 +154,8 @@ export function FormSpecimen() {
     <div className={styles.scenarioControls}><p>Simulation : aucun envoi réel</p><label className={styles.field}>Réponse à simuler<select value={outcome} disabled={submission === 'pending'} onChange={event => setOutcome(event.target.value as typeof outcome)}><option value="success">Réussite après attente</option><option value="failure">Échec après attente</option><option value="pending">Attente prolongée</option></select></label>{submission === 'pending' && outcome === 'pending' && <div className={styles.buttonRow}><button type="button" className={styles.secondary} onClick={() => finish('success')}>Simuler la réussite</button><button type="button" className={styles.secondary} onClick={() => finish('failure')}>Simuler l’échec</button></div>}<p>Envois simulés : {attempt}</p></div>
     <form noValidate onSubmit={submit} className={styles.specimenStack}>
       {Object.keys(errors).length > 0 && <div ref={summary} tabIndex={-1} className={styles.errorSummary} role="alert"><h3>Vérifiez les champs indiqués avant d’envoyer votre recette.</h3><ul>{fields.filter(field => errors[field.key]).map(field => <li key={field.key}><a href={`#${prefix}-${field.key}`} onClick={event => { event.preventDefault(); document.getElementById(`${prefix}-${field.key}`)?.focus() }}>{field.label} : {errors[field.key]}</a></li>)}</ul></div>}
-      <div className={styles.formGrid}>{fields.map(field => <label key={field.key} className={styles.field} htmlFor={`${prefix}-${field.key}`}>{field.label} (obligatoire)<input id={`${prefix}-${field.key}`} type={field.key === 'name' ? 'text' : 'number'} min={field.minimum} step={field.minimum === undefined ? undefined : 1} required value={values[field.key]} disabled={submission === 'pending'} aria-invalid={!!errors[field.key]} aria-describedby={`${prefix}-${field.key}-${errors[field.key] ? 'error' : 'hint'}`} onChange={event => setValues({ ...values, [field.key]: event.target.value })} />{errors[field.key] ? <span id={`${prefix}-${field.key}-error`} className={styles.error}>{errors[field.key]}</span> : <span id={`${prefix}-${field.key}-hint`}>{field.key === 'name' ? 'Un nom complet, même s’il est long.' : field.key === 'servings' ? 'Un entier supérieur ou égal à 1.' : 'Un entier supérieur ou égal à 0.'}</span>}</label>)}</div>
-      <button className={styles.primaryButton} type="submit" disabled={submission === 'pending'}>{submission === 'pending' ? 'Envoi de la recette…' : submission === 'failure' ? 'Réessayer l’envoi' : 'Envoyer la recette'}</button>
+      <div className={styles.formGrid}>{fields.map(field => <label key={field.key} className={styles.field} htmlFor={`${prefix}-${field.key}`}>{field.label} (obligatoire)<input id={`${prefix}-${field.key}`} type={field.key === 'name' ? 'text' : 'number'} min={field.minimum} step={field.minimum === undefined ? undefined : 1} required value={values[field.key]} disabled={submission === 'pending' || preview === 'disabled'} aria-invalid={!!errors[field.key]} aria-describedby={`${prefix}-${field.key}-${errors[field.key] ? 'error' : 'hint'}`} onChange={event => setValues({ ...values, [field.key]: event.target.value })} />{errors[field.key] ? <span id={`${prefix}-${field.key}-error`} className={styles.error}>{errors[field.key]}</span> : <span id={`${prefix}-${field.key}-hint`}>{field.key === 'name' ? 'Un nom complet, même s’il est long.' : field.key === 'servings' ? 'Un entier supérieur ou égal à 1.' : 'Un entier supérieur ou égal à 0.'}</span>}</label>)}</div>
+      <button className={styles.primaryButton} type="submit" disabled={submission === 'pending' || preview === 'disabled'}>{submission === 'pending' ? 'Envoi de la recette…' : submission === 'failure' ? 'Réessayer l’envoi' : 'Envoyer la recette'}</button>
       <div role="status" aria-live="polite">{submission === 'pending' && 'Envoi de la recette…'}{submission === 'success' && <><h3>Recette envoyée</h3><p>L’API de démonstration a accepté votre recette. Cet ajout n’est pas conservé dans le catalogue.</p><p>Simulation : aucun envoi réel</p></>}</div>
       {submission === 'failure' && <p role="alert" className={styles.error}>La recette n’a pas pu être envoyée. Vos informations sont conservées. Réessayez.</p>}
     </form>
@@ -168,13 +176,13 @@ export function ComponentGallery() {
   const action = useRef<HTMLButtonElement>(null)
   return <div className={styles.componentGallery} data-preview={preview}>
     <div className={styles.componentIntro}><p className={styles.eyebrow}>Miam ! · Le carnet de direction · 02 / 04</p><h1>Les petits gestes<br />qui changent tout.</h1><p>Des composants à toucher, à parcourir au clavier et à mettre à l’épreuve. Les fondations F01 sont validées ; place aux interactions.</p></div>
-    <div className={styles.scenarioControls}><p>Atelier de design — données de démonstration · C01</p><div className={styles.controls}><label className={styles.field}>État à examiner<select value={preview} onChange={event => setPreview(event.target.value as PreviewState)}><option value="default">Par défaut</option><option value="hover">Survol</option><option value="focus">Focus visible</option><option value="selected">Sélectionné</option><option value="disabled">Désactivé</option><option value="loading">Chargement</option><option value="error">Erreur</option></select></label><label className={styles.check}><input type="checkbox" checked={longText} onChange={event => setLongText(event.target.checked)} /> Textes longs</label><label className={styles.check}><input type="checkbox" checked={imageMissing} onChange={event => setImageMissing(event.target.checked)} /> Photo indisponible</label></div><p>Le sélecteur compare les apparences. Les états réels s’essaient aussi avec Tab, la souris et les commandes de chaque section. Aucune interaction n’enregistre d’approbation.</p></div>
+    <div className={styles.scenarioControls}><p>Atelier de design — données de démonstration · C01</p><div className={styles.controls}><label className={styles.field}>État à examiner<select value={preview} onChange={event => setPreview(event.target.value as PreviewState)}><option value="default">Par défaut</option><option value="hover">Survol</option><option value="focus">Focus visible</option><option value="selected">Sélectionné</option><option value="disabled">Désactivé</option><option value="loading">Chargement</option><option value="error">Erreur</option></select></label><label className={styles.check}><input type="checkbox" checked={longText} onChange={event => setLongText(event.target.checked)} /> Textes longs</label><label className={styles.check}><input type="checkbox" checked={imageMissing} onChange={event => setImageMissing(event.target.checked)} /> Photo indisponible</label></div><p>Le changement d’état réinitialise les exemples de champs et de lignes. Le sélecteur compare les apparences. Les états réels s’essaient aussi avec Tab, la souris et les commandes de chaque section. Aucune interaction n’enregistre d’approbation.</p></div>
     <Section number="01" title="Inviter à agir"><div className={styles.buttonRow}><button ref={action} className={styles.primaryButton} disabled={preview === 'disabled' || preview === 'loading'} type="button" onClick={() => setOpenedRecipe(true)}>{preview === 'loading' ? 'Chargement des recettes…' : longText ? 'Découvrir les recettes généreuses à partager avec toute la tablée' : 'Découvrir les recettes'}</button><button className={styles.secondary} type="button" onClick={() => action.current?.focus()}>Examiner le focus réel</button><a className={styles.textLink} href="#fields">Explorer les champs</a><button className={styles.secondary} type="button" disabled>Action désactivée</button></div>{preview === 'error' && <p role="alert" className={styles.error}>Les recettes n’ont pas pu être chargées. Réessayez pour les afficher.</p>}</Section>
     <Section number="02" title="Trouver sa prochaine envie"><FilterSpecimen /></Section>
     <Section number="03" title="Lire, aimer, retrouver"><div className={styles.cardGrid}><RecipeCard imageMissing={imageMissing} disabled={preview === 'disabled'} name={longText ? 'Pâtes généreuses à la tomate, au basilic fraîchement cueilli et aux souvenirs des grandes tablées ensoleillées' : recipeName} onOpen={() => setOpenedRecipe(true)} /><div className={styles.specimenStack}><h3>Un cœur, deux états</h3><FavoriteButton name={recipeName} selected={favorite} onToggle={() => setFavorite(!favorite)} disabled={preview === 'disabled'} /><p>Le favori est temporaire. Appuyez à nouveau pour revenir à l’état précédent.</p><div id="recipe-preview" className={styles.panel}><p role="status">{openedRecipe ? 'Aperçu ouvert : Pâtes à la tomate et au basilic frais. L’écran complet sera présenté après le choix de composition.' : 'Ouvrez le titre de la carte pour essayer sa cible, distincte du favori.'}</p></div></div></div></Section>
     <Section number="04" title="Toujours savoir où aller"><div className={styles.specimenStack}><h3>Sur grand écran</h3><NavigationSpecimen /><h3>Barre mobile · icônes et libellés</h3><NavigationSpecimen mobile /><p>La barre est présentée dans son cadre de démonstration. Son placement en bas d’écran et le dégagement du contenu seront vérifiés dans les maquettes complètes.</p></div></Section>
-    <Section number="05" title="Des lignes qui suivent vos idées"><div className={styles.rowGrid}><RecipeRows kind="ingredient" /><RecipeRows kind="step" /></div></Section>
-    <div id="fields"><Section number="06" title="Des champs qui vous accompagnent"><FormSpecimen /></Section></div>
+    <Section number="05" title="Des lignes qui suivent vos idées"><div className={styles.rowGrid}><RecipeRows key={`ingredient-${preview}`} kind="ingredient" preview={preview} /><RecipeRows key={`step-${preview}`} kind="step" preview={preview} /></div></Section>
+    <div id="fields"><Section number="06" title="Des champs qui vous accompagnent"><FormSpecimen key={preview} preview={preview} /></Section></div>
     <Section number="07" title="Toujours une réponse claire"><div className={styles.specimenStack}><label className={styles.field}>État du contenu<select value={feedback} onChange={event => setFeedback(event.target.value)}><option value="loaded">Contenu disponible</option><option value="loading">Chargement</option><option value="empty">Aucun résultat</option><option value="error">Échec et réessai</option><option value="success">Réussite simulée</option></select></label><div className={styles.feedback}>
       {feedback === 'loaded' && <p>1 recette · Votre prochaine idée est prête à être découverte.</p>}
       {feedback === 'loading' && <><div className={styles.skeleton} aria-hidden="true" /><p role="status">Chargement des recettes…</p></>}
@@ -182,5 +190,23 @@ export function ComponentGallery() {
       {feedback === 'error' && <><p role="alert" className={styles.error}>Les recettes n’ont pas pu être chargées. Réessayez pour les afficher.</p><button type="button" className={styles.secondary} onClick={() => setFeedback('loaded')}>Recharger les recettes</button></>}
       {feedback === 'success' && <div role="status"><h3>Recette envoyée</h3><p>Simulation : aucun envoi réel</p></div>}
     </div></div></Section>
+    <Section number="08" title="Le carnet des états"><StateInventory /></Section>
   </div>
+}
+
+function StateInventory() {
+  const entries = [
+    ['E9 · Navigation', 'Survol et focus réels ; destination courante encadrée et soulignée.', 'Désactivé, chargement, erreur : sans objet pour ces liens locaux ; la navigation reste disponible.'],
+    ['E10 · Panneau de filtres', 'Ouvert/fermé ; focus initial, Tab, Échap ; valeurs brouillon et appliquées.', 'Chargement et erreur de transport : sans objet pour des choix locaux.'],
+    ['E11 · Carte', 'Lien sur le titre, survol/focus, texte long, photo absente ; favori indépendant.', 'Sélection de la carte : sans objet ; seul le favori est un bouton à état. Chargement du contenu : section 07.'],
+    ['E12 · Favori', 'Deux états au clic, forme et libellé distincts ; désactivé via le sélecteur.', 'Chargement et erreur : sans objet pour un changement local temporaire.'],
+    ['E13 · Lignes', 'Vide/rempli, erreur liée, focus après ajout/retrait/restauration ; état désactivé.', 'Chargement : sans objet pour un ajout local. Survol et focus réels sur les commandes.'],
+    ['E14 · Boutons et liens', 'Par défaut, survol et focus comparables ; désactivé et chargement pour les actions ; erreur contextuelle.', 'Sélection : sans objet pour un simple lien ou une action ; voir favoris, filtres et pagination.'],
+    ['E15 · Champs', 'Vide/rempli, focus, erreurs liées et résumé focalisé ; désactivé et attente du formulaire.', 'Sélection de texte : comportement natif. Survol/focus via le sélecteur et la souris.'],
+    ['E16 · Sélecteurs', 'Valeur neutre/choisie, survol/focus natifs, réponse simulée désactivée pendant l’attente.', 'Erreur et chargement des options : sans objet pour les listes locales fermées.'],
+    ['E17 · Filtres actifs', 'Aucun/un/plusieurs ; suppression nommée et remise à zéro, survol/focus.', 'Désactivé, chargement et erreur : sans objet pour ces retraits locaux immédiats.'],
+    ['E18 · Pagination', 'Page courante, survol/focus, précédent/suivant désactivés aux limites.', 'Chargement/erreur des recettes : section 07 ; la pagination locale reste utilisable.'],
+    ['E19 · Retours', 'Disponible, vide, chargement statique, erreur/réessai, réussite annoncée ; textes longs.', 'Survol, focus, sélection et désactivation : sans objet pour du texte ; réessai et liens ont les états des boutons.'],
+  ]
+  return <div className={styles.specimenStack}><p>Chaque ligne indique comment essayer les états applicables. Les états sans objet sont explicités pour éviter de simuler des requêtes sur des interactions locales.</p><dl className={styles.stateInventory}>{entries.map(([name, applicable, exceptions]) => <div key={name}><dt>{name}</dt><dd>{applicable}</dd><dd>{exceptions}</dd></div>)}</dl><p>Réduction des animations : activez la préférence système pour supprimer les transitions. Les squelettes restent statiques dans tous les modes.</p></div>
 }

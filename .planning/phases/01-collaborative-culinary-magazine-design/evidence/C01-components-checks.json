@@ -1,0 +1,346 @@
+{
+  "results": [
+    {
+      "name": "Components stage is reachable",
+      "status": "pass"
+    },
+    {
+      "name": "Inventory headings",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog initial focus",
+      "status": "pass"
+    },
+    {
+      "name": "Unapplied changes discarded",
+      "status": "pass"
+    },
+    {
+      "name": "Reopened from applied values",
+      "status": "pass"
+    },
+    {
+      "name": "Applied chip visible",
+      "status": "pass"
+    },
+    {
+      "name": "Applying filters resets page",
+      "status": "pass"
+    },
+    {
+      "name": "Favorite toggle semantics",
+      "status": "pass"
+    },
+    {
+      "name": "Added row focused",
+      "status": "pass"
+    },
+    {
+      "name": "Removal focus and restore",
+      "status": "pass"
+    },
+    {
+      "name": "Restore content and focus",
+      "status": "pass"
+    },
+    {
+      "name": "Independent card targets",
+      "status": "pass"
+    },
+    {
+      "name": "One-step minimum",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog focus contained 1",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog focus contained 2",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog focus contained 3",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog focus contained 4",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog focus contained 5",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog focus contained 6",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog focus contained 7",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog focus contained 8",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog focus contained 9",
+      "status": "pass"
+    },
+    {
+      "name": "Reverse Tab wraps to last control",
+      "status": "pass"
+    },
+    {
+      "name": "Escape closes and returns focus",
+      "status": "pass"
+    },
+    {
+      "name": "Escape discards draft",
+      "status": "pass"
+    },
+    {
+      "name": "Missing image reserves geometry",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog reflow 320",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog reflow 390",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog reflow 768",
+      "status": "pass"
+    },
+    {
+      "name": "Dialog reflow 1440",
+      "status": "pass"
+    },
+    {
+      "name": "Invalid summary focused",
+      "status": "pass"
+    },
+    {
+      "name": "Required fields linked to errors",
+      "status": "pass"
+    },
+    {
+      "name": "Error link focuses input",
+      "status": "pass"
+    },
+    {
+      "name": "Numeric integer bounds",
+      "status": "pass"
+    },
+    {
+      "name": "Pending status and duplicate disabled",
+      "status": "pass"
+    },
+    {
+      "name": "Concurrent guard",
+      "status": "pass"
+    },
+    {
+      "name": "Failure retains form input",
+      "status": "pass"
+    },
+    {
+      "name": "Explicit held pending",
+      "status": "pass"
+    },
+    {
+      "name": "Success announced after simulated result",
+      "status": "pass"
+    },
+    {
+      "name": "Step addition focus",
+      "status": "pass"
+    },
+    {
+      "name": "Step renumbered after removal",
+      "status": "pass"
+    },
+    {
+      "name": "Reduced motion for all elements",
+      "status": "pass"
+    },
+    {
+      "name": "Control dimensions",
+      "status": "pass"
+    }
+  ],
+  "viewport": [
+    {
+      "width": 320,
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "mode": "default"
+    },
+    {
+      "width": 320,
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "mode": "hover"
+    },
+    {
+      "width": 320,
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "mode": "focus"
+    },
+    {
+      "width": 320,
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "mode": "selected"
+    },
+    {
+      "width": 320,
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "mode": "disabled"
+    },
+    {
+      "width": 320,
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "mode": "loading"
+    },
+    {
+      "width": 320,
+      "scrollWidth": 305,
+      "clientWidth": 305,
+      "mode": "error"
+    },
+    {
+      "width": 390,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "mode": "default"
+    },
+    {
+      "width": 390,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "mode": "hover"
+    },
+    {
+      "width": 390,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "mode": "focus"
+    },
+    {
+      "width": 390,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "mode": "selected"
+    },
+    {
+      "width": 390,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "mode": "disabled"
+    },
+    {
+      "width": 390,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "mode": "loading"
+    },
+    {
+      "width": 390,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "mode": "error"
+    },
+    {
+      "width": 768,
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "mode": "default"
+    },
+    {
+      "width": 768,
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "mode": "hover"
+    },
+    {
+      "width": 768,
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "mode": "focus"
+    },
+    {
+      "width": 768,
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "mode": "selected"
+    },
+    {
+      "width": 768,
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "mode": "disabled"
+    },
+    {
+      "width": 768,
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "mode": "loading"
+    },
+    {
+      "width": 768,
+      "scrollWidth": 753,
+      "clientWidth": 753,
+      "mode": "error"
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "mode": "default"
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "mode": "hover"
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "mode": "focus"
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "mode": "selected"
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "mode": "disabled"
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "mode": "loading"
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
+      "mode": "error"
+    }
+  ]
+}
